@@ -21,6 +21,10 @@ import { usePathname } from 'next/navigation';
     href:"/home/dashboard",
     icon:ListBulletIcon
   },
+  {title:"Add an Entry",
+    href:"/home/entry",
+    icon:UserPlusIcon
+  },
   {title:"Account Ledger",
     href:"/home/ledger",
     icon:UserPlusIcon

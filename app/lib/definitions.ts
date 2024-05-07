@@ -2,6 +2,21 @@
 // It describes the shape of the data, and what data type each property should accept.
 // For simplicity of teaching, we're manually defining these types.
 // However, these types are generated automatically if you're using an ORM such as Prisma.
+export type martket_customer ={
+  fname:string;
+  lname:string;
+  father:string;
+  place:string;
+}
+
+export type Fruit={
+  mangotype:string;
+  rate:string;
+  weight:string;
+}
+
+export type FruitArray=Array<Fruit>
+
 export type User = {
   id: string;
   name: string;
