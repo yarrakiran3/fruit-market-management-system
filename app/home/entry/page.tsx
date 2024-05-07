@@ -110,21 +110,18 @@ function addFruit(e:any){
 
    function addEntry(){
     
-    if(size(inputs)==9&&fruitsArray.length>0){
+    if(size(inputs)==10&&fruitsArray.length>0){
         addAnEntry(inputs,fruitsArray);
         setInputs({})
         addFruittoArray([])
+        triggerTable(false);
 
     } else if(fruitsArray.length==0){
         setFruitIsAdded(false);
+
     }
     
-    else {
-        setFormIsFilled(false);
-        // console.log("Please fill al the details")
-        // console.log(formIsFilled)
-        
-    }
+   
         
 
 
@@ -133,34 +130,29 @@ function addFruit(e:any){
   
     return(
         <form action={addEntry}>
-            <label htmlFor="fname">First Name</label>
-            <input type="text" id="fname" name="fname" value={inputs.fname || ""} onChange={handleChange} onClick={()=>{setFormIsFilled(true)}}></input>
-            <br></br>
-            <br></br>
-
-            <label htmlFor="lname" >Last Name</label>
-            <input type="text" id="lname" name="lname" value={inputs.lname || ""} onChange={handleChange} onClick={()=>{setFormIsFilled(true)}}></input>
-            <br></br>
+            <label htmlFor="fname">First Name</label><br></br>
+            <input type="text" id="fname" name="fname" value={inputs.fname || ""} onChange={handleChange}  required></input>
             <br></br>
 
-            <label htmlFor="fathername" > S/O :</label>
-            <input type="text" id="fathername" name="fathername" value={inputs.fathername || ""} onChange={handleChange} onClick={()=>{setFormIsFilled(true)}}></input>
-            <br></br>
-            <br></br>
-
-            <label htmlFor="place" >Place</label>
-            <input type="text" id="place" name="place" value={inputs.place || ""} onChange={handleChange} onClick={()=>{setFormIsFilled(true)}}></input>
-            <br></br>
+            <label htmlFor="lname" >Last Name</label><br></br>
+            <input type="text" id="lname" name="lname" value={inputs.lname || ""} onChange={handleChange}  required></input>
             <br></br>
 
-            <label htmlFor="date">Enter a Date</label>
-            <input type="date" id="date" name="date" value={inputs.date || ""} onChange={handleChange} onClick={()=>{setFormIsFilled(true)}}></input>
-            <br></br>
+            <label htmlFor="fathername" > S/O :</label><br></br>
+            <input type="text" id="fathername" name="fathername" value={inputs.fathername || ""} onChange={handleChange} required></input>
             <br></br>
 
-            <label htmlFor="vhtype">Vehicle Type</label>
-            <select  id="vhtype" name="vhtype" value={inputs.vhtype || ""} onChange={handleChange} onClick={()=>{setFormIsFilled(true)}}>
-            <option >Select</option>    
+            <label htmlFor="place" >Place</label><br></br>
+            <input type="text" id="place" name="place" value={inputs.place || ""} onChange={handleChange}  required></input>
+            <br></br>
+
+            <label htmlFor="date">Enter a Date</label><br></br>
+            <input type="date" id="date" name="date" value={inputs.date || ""} onChange={handleChange}  required></input>
+            <br></br>
+
+            <label htmlFor="vhtype">Vehicle Type</label><br></br>
+            <select  id="vhtype" name="vhtype" value={inputs.vhtype || ""} onChange={handleChange}  required>
+            <option value={""} selected disabled hidden>Select</option>    
             <option value={1}>Bike</option>
             <option value={2}>Ton Auto</option>
             <option value={3}>Tata A.C</option>
@@ -168,21 +160,21 @@ function addFruit(e:any){
             <option value={5}>Lorry</option>
             </select>
             <br></br>
+
+            <label htmlFor="vhno">Vehicle No.</label><br></br>
+            <input type="text" id="vhno" name="vhno" value={inputs.vhno || ""} onChange={handleChange}  required></input>
             <br></br>
 
-            <label htmlFor="cooli">Cooli</label>
-            <input type="number" id="cooli" name="cooli" value={inputs.cooli || ""} onChange={handleChange} onClick={()=>{setFormIsFilled(true)}}></input>
-            <br></br>
-            <br></br>
-
-            <label htmlFor="kirai">Kirai</label>
-            <input type="number" id="kirai" name="kirai" value={inputs.kirai || ""} onChange={handleChange} onClick={()=>{setFormIsFilled(true)}}></input>
-            <br></br>
+            <label htmlFor="cooli">Cooli</label><br></br>
+            <input type="number" id="cooli" name="cooli" value={inputs.cooli || ""} onChange={handleChange}  required></input>
             <br></br>
 
-            <label htmlFor="commission">Commission</label>
-            <input type="number" id="commission" name="commission" value={inputs.commission || ""} onChange={handleChange} onClick={()=>{setFormIsFilled(true)}}></input>
+            <label htmlFor="kirai">Kirai</label><br></br>
+            <input type="number" id="kirai" name="kirai" value={inputs.kirai || ""} onChange={handleChange}  required></input>
             <br></br>
+
+            <label htmlFor="commission">Commission</label><br></br>
+            <input type="number" id="commission" name="commission" value={inputs.commission || ""} onChange={handleChange}  required></input>
             <br></br>
 
             <FruitValidation fruitIsAdded={fruitIsAdded}/>
@@ -193,7 +185,7 @@ function addFruit(e:any){
 
             <label htmlFor="mangotype" >Select a mango Type</label>
             <select  id="mangotype" name="mangotype" value={singleFruit.mangotype || ""} onChange={(e)=>handleFruitInputChange(e)}>
-            <option >Select</option>
+            <option ></option>
             <option value={"ChinnaRasam"}>Chinna Rasam</option>
             <option value={"PedhaRasam"}>Pedha Rasam </option>
             <option value={"Totapuri"}>Totapuri</option>
