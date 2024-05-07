@@ -24,6 +24,20 @@ export type User = {
   password: string;
 };
 
+export type Transaction={
+  fname:string;
+  lname:string;
+  place:string;
+  fathernamne:string;
+  date:string;
+  vhno:string;
+  cooli:string;
+  kirai:string
+  commission:string;
+  vhtype:string
+}
+
+// 
 export type Customer = {
   id: string;
   name: string;
