@@ -60,7 +60,7 @@ console.log(inputs)
 console.log(fruitsArray)
 
 // revalidatePath('/home/entry')
-redirect('/home/entry')
+redirect('/home')
 
   // const {fname,lname,place,father}=FormSchema.parse({
   //   fname:formData.get('fname'),
