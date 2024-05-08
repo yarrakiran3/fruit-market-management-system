@@ -92,41 +92,23 @@ const {fname,lname,fathername,place,date,vhtype,vhno,cooli,kirai,commission,tota
 })
 const totalExp=kirai+commission+cooli;
 
-await sql`
+const customerReturn=await sql`
 insert into market_customers (fname,lname,father,place)
 values (${fname},${lname},${fathername},${place})
+returning id
 `
+const customer_id=customerReturn.rows[0].id
 
-const id=await sql<id>`    
-select id from market_customers
-where fname=${fname} and lname=${lname} and father=${fathername} and place=${place}
-`
-const customer_id=id.rows[0].id;
-
-if(totalExp===totalexp){
-await sql`
-insert into transactions (cutomer_id,tran_date,vhtype,vhno,cooli,kirai,commission,totalExp)
-values (${customer_id},${date},${vhtype},${vhno},${cooli},${kirai},${commission},${totalexp})
-`
-}else {
-  await sql`
-insert into transactions (cutomer_id,tran_date,vhtype,vhno,cooli,kirai,commission,totalExp)
-values (${customer_id},${date},${vhtype},${vhno},${cooli},${kirai},${commission},${totalExp})
-`
-}
 
 const tranReturn=await sql`
-SELECT pg_get_serial_sequence('transactions', 'tran_id');
-`
-console.log(tranReturn.rows)
-const seq=tranReturn.rows[0].pg_get_serial_sequence;
-console.log(seq)
-const lastInsertedTran=await sql`
-SELECT CURRVAL(${seq}) AS last_inserted_id;
-
+insert into transactions (cutomer_id,tran_date,vhtype,vhno,cooli,kirai,commission,totalExp)
+values (${customer_id},${date},${vhtype},${vhno},${cooli},${kirai},${commission},${totalExp})
+returning tran_id
 `
 
-const transaction_id=lastInsertedTran.rows[0].last_inserted_id;
+
+
+const transaction_id=tranReturn.rows[0].tran_id;
 console.log(transaction_id);
 
 fruitsArray.map(async (fruit)=>{

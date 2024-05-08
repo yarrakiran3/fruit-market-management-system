@@ -2,8 +2,7 @@
 import React, { useState } from "react";
 import { addAnEntry } from "@/app/lib/actions"
 import { Fruit } from "@/app/lib/definitions";
-import { number } from "zod";
-
+import { Mangotypes } from "@/app/lib/definitions";
     
 
 export default function Page(){
@@ -173,11 +172,11 @@ function addFruit(e:any){
             onChange={handleFruitInputChange}
             >
             <option ></option>
-            <option value={"CR"}>Chinna Rasam</option>
-            <option value={"PR"}>Pedha Rasam </option>
-            <option value={"TR"}>Totapuri</option>
-            <option value={"BP"}>Banginapalli</option>
-            <option value={"CHRK"}>Cheruku Rasam</option>
+            <option value={1}>Chinna Rasam</option>
+            <option value={2}>Pedha Rasam </option>
+            <option value={3}>Totapuri</option>
+            <option value={4}>Banginapalli</option>
+            <option value={5}>Cheruku Rasam</option>
             </select>
             <br></br>
             <br></br>
@@ -235,7 +234,7 @@ function FruitValidation({fruitIsAdded}:{fruitIsAdded:boolean}){
         </>
     ) 
 }
-function FruitTable({addedFruitArray}:{addedFruitArray:Array<any>}){
+function FruitTable({addedFruitArray}:{addedFruitArray:Array<Fruit>}){
     return (
         <>
         <table>

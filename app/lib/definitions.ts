@@ -6,6 +6,10 @@ export type id={
   id:string
 }
 
+
+export const Mangotypes: string[] = ["Chinna Rasam","Pedha Rasam", "Totapuri","Banginapalli"];
+
+
 export type martket_customer ={
   fname:string;
   lname:string;
