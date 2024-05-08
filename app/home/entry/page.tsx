@@ -17,7 +17,7 @@ export default function Page(){
     const [inputs, setInputs] = useState({});
     const [fruitsArray,addFruittoArray]=useState(Array<Fruit>);
     const [singleFruit,setFruitValues]=useState<Fruit>({
-        mangotype:"",
+        mangotype:0,
         rate:0,
         weight:0
     })
@@ -34,12 +34,10 @@ function handleChange(e:any){
 const handleFruitInputChange=<T extends HTMLInputElement | HTMLSelectElement>(e:React.ChangeEvent<T>)=>{
     const {name,value}=e.target;
     const updatedFruit={...singleFruit};
-    if(name==="mangotype"){
-        updatedFruit[name]=value;
-    }else{
+   
         updatedFruit[name]=Number(value);
 
-    }
+    
     setFruitValues(updatedFruit);
     
     
@@ -50,7 +48,7 @@ const handleFruitInputChange=<T extends HTMLInputElement | HTMLSelectElement>(e:
 const resetFruit =()=>{
     setFruitValues(
         {
-            mangotype:"",
+            mangotype:0,
         rate:0,
         weight:0
         }
@@ -59,7 +57,7 @@ const resetFruit =()=>{
 }
 
 function addFruit(e:any){
-    if(singleFruit.mangotype!=""&&singleFruit.rate!=0&&singleFruit.weight!=0){
+    if(singleFruit.mangotype!=0&&singleFruit.rate!=0&&singleFruit.weight!=0){
         const nextArray=[...fruitsArray,singleFruit];
         addFruittoArray(nextArray);
          resetFruit();

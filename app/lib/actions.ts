@@ -7,15 +7,15 @@ import { FruitArray, id } from "./definitions";
 
 
  
-const InvoiceFormSchema = z.object({
-  id: z.string(),
-  customerId: z.string(),
-  amount: z.coerce.number(),
-  status: z.enum(['pending', 'paid']),
-  date: z.string(),
-});
+// const InvoiceFormSchema = z.object({
+//   id: z.string(),
+//   customerId: z.string(),
+//   amount: z.coerce.number(),
+//   status: z.enum(['pending', 'paid']),
+//   date: z.string(),
+// });
  
-const CreateInvoice = InvoiceFormSchema.omit({ id: true, date: true });
+// const CreateInvoice = InvoiceFormSchema.omit({ id: true, date: true });
 
 
 // export async function createInvoice(formData: FormData) {
