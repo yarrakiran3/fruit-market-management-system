@@ -2,12 +2,21 @@
 // It describes the shape of the data, and what data type each property should accept.
 // For simplicity of teaching, we're manually defining these types.
 // However, these types are generated automatically if you're using an ORM such as Prisma.
-export type id={
-  id:string
+
+export type DashboardTran={
+  id:number;
+  fname:string;
+  lname:string;
+  tran_id:number;
+  totalexp:number
 }
 
+export type TranObject={
+  transaction_details:DashboardTran;
+  fruits_array:Fruit[]
+}
 
-export const Mangotypes: string[] = ["Chinna Rasam","Pedha Rasam", "Totapuri","Banginapalli"];
+export const Mangotypes: string[] = ["","Chinna Rasam","Pedha Rasam", "Totapuri","Banginapalli","Cheruku Rasam"];
 
 
 export type martket_customer ={
@@ -21,7 +30,7 @@ export type Fruit={
   mangotype:number;
   rate:number;
   weight:number;
-  [key:string]:any;
+  [key:string]:any
 }
 
 export type FruitArray=Array<Fruit>

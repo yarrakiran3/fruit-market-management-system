@@ -32,7 +32,7 @@ function handleChange(e:any){
 
 const handleFruitInputChange=<T extends HTMLInputElement | HTMLSelectElement>(e:React.ChangeEvent<T>)=>{
     const {name,value}=e.target;
-    const updatedFruit={...singleFruit};
+    const updatedFruit:Fruit={...singleFruit};
    
         updatedFruit[name]=Number(value);
 
@@ -248,7 +248,7 @@ function FruitTable({addedFruitArray}:{addedFruitArray:Array<Fruit>}){
              return <>
              <tbody>
                 <tr key={index}>
-                    <td>{fruit.mangotype}</td>
+                    <td>{Mangotypes[fruit.mangotype]}</td>
                     <td>{fruit.rate}</td>
                     <td>{fruit.weight}</td>
                 </tr>

@@ -3,7 +3,7 @@
 import { z } from "zod";
 import { redirect } from 'next/navigation';
 import { revalidatePath } from "next/cache";
-import { FruitArray, id } from "./definitions";
+import { FruitArray } from "./definitions";
 
 
  
@@ -106,25 +106,21 @@ values (${customer_id},${date},${vhtype},${vhno},${cooli},${kirai},${commission}
 returning tran_id
 `
 
-
-
 const transaction_id=tranReturn.rows[0].tran_id;
-console.log(transaction_id);
+// console.log(transaction_id);
 
-fruitsArray.map(async (fruit)=>{
-
-const totalFruitAmount =fruit.rate*fruit.weight;
-
-await sql`
-insert into fruits (tran_id,fruit_type,rate,weight,total)
-values (${transaction_id},${fruit.mangotype},${fruit.rate},${fruit.weight},${totalFruitAmount});
-`
-
-})
-
+for(const fruit of fruitsArray){
+  const totalFruitAmount =fruit.rate*fruit.weight;
+  const presentDate=new Date().toISOString();
+  // console.log(presentDate)
+  await sql`
+  insert into mangoes (tran_id,mangotype,rate,weight,total,created_at)
+  values (${transaction_id},${fruit.mangotype},${fruit.rate},${fruit.weight},${totalFruitAmount},${presentDate});
+  `
+}
 
 
-// revalidatePath('/home/entry')
-redirect('/home')
+revalidatePath('/home/dashboard')
+redirect('/home/dashboard')
 
 }
