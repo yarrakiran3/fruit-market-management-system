@@ -1,8 +1,10 @@
-import { Mangotypes, DayBookTranObject } from "@/app/lib/definitions"
+import { DashBoardTranObject, Mangotypes } from "@/app/lib/definitions";
 
-export default  function DayBookTable({transactionsForDayBook}:{transactionsForDayBook:DayBookTranObject[]}) {
+export default  function DashBoardTable({transactionsForDashboard}:{transactionsForDashboard:DashBoardTranObject[]}){
     
-        return (
+    
+
+    return(
         <>
         <table cellPadding={10} >
             <thead>
@@ -16,7 +18,7 @@ export default  function DayBookTable({transactionsForDayBook}:{transactionsForD
             <tbody className="text-center">
 
         
-            {transactionsForDayBook.map((tran)=>{
+            {transactionsForDashboard.map((tran)=>{
             return(
                 <tr key={tran.transaction_details.tran_id}>
                     <td>{tran.transaction_details.id}</td>
@@ -45,6 +47,7 @@ export default  function DayBookTable({transactionsForDayBook}:{transactionsForD
             </tbody>
         </table>
         </>
-        )
-    
+    )
+
+   
 }

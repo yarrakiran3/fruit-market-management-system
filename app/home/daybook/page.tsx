@@ -4,7 +4,7 @@ import {useEffect} from "react";
 import DayBookTable from "@/app/components/daybook/daybook";
 import { DayBookTranObject } from "@/app/lib/definitions";
 import { fetchTransactionsForDayBook } from "@/app/lib/read";
-
+import { ClipLoader } from "react-spinners";
 export default  function Page(){
     const [date,setDate]=useState("");
     const [dateIsSet,setDateisSet]=useState(false);
@@ -47,6 +47,7 @@ export default  function Page(){
         };
         dayBookTransFetch(); 
     },[dateIsSet])
+
     return(
         <>
         <label htmlFor="searchwithdate">Select a date</label>
@@ -58,9 +59,10 @@ export default  function Page(){
         <button type="submit" onClick={handleClear} className="bg-blue-500 rounded-md ml-56">Clear</button>
         <>
         <br></br>
-        {dateIsSet&&!dataIsFetched&&<>Fetching the data...</>}
         <br></br>
-        {dataIsFetched&&<DayBookTable dayBookTrans={dayBookTrans}/>}
+        {dateIsSet&&!dataIsFetched&&<><ClipLoader/>Fetching the data...</>}
+        <br></br>
+        {dataIsFetched&&<DayBookTable transactionsForDayBook={dayBookTrans}/>}
         </>
             </>
     )

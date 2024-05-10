@@ -1,53 +1,35 @@
+'use client'
+import DashBoardTable from "@/app/components/dashboard/dashboard-table";
+import { DashBoardTranObject } from "@/app/lib/definitions";
 import { fetchTransactionsForDashboard } from "@/app/lib/read";
-import { Mangotypes } from "@/app/lib/definitions";
+import {useState,useEffect} from "react";
+import { ClipLoader } from "react-spinners";
 
-export default async function Page(){
-    const transactionsForDashboard=await fetchTransactionsForDashboard();
-    console.log(transactionsForDashboard);
+export default  function Page(){
+    const [dashBoardTrans,setDashBoardTrans]=useState<DashBoardTranObject[]>([])
+    const [isLoading,setIsLoading]=useState(true)
+
+    useEffect(()=>{
+        
+        const dashBoardTranFetch = async ()=>{
+            try{
+                const dashBoardTransactions=await fetchTransactionsForDashboard();
+                setDashBoardTrans(dashBoardTransactions);
+                setIsLoading(false);
+
+            }catch(e){
+                console.log(e)
+            }
+        };
+        dashBoardTranFetch(); 
+    },[isLoading]);
     
 
     return(
         <>
-        <table cellPadding={10} >
-            <thead>
-                <tr>
-                <th>customer_id</th>
-                <th>customer name</th>
-                <th>total exp</th>
-                <th>Mangoes</th>
-                </tr>
-            </thead>
-            <tbody className="text-center">
-
-        
-            {transactionsForDashboard.map((tran)=>{
-            return(
-                <tr key={tran.transaction_details.tran_id}>
-                    <td>{tran.transaction_details.id}</td>
-                    <td>{tran.transaction_details.fname}  {tran.transaction_details.lname}</td>
-                    <td>{tran.transaction_details.totalexp}</td>
-                    <td>
-                        <table cellPadding={5}>
-                            <tbody>
-                                {tran.fruits_array.map((fruit,index)=>{
-
-                                    return (
-                                    <tr key={index} className="text-center">
-                                        <td>{Mangotypes[fruit.mangotype]}</td>
-                                        <td>{fruit.rate}</td>
-                                        <td>{fruit.weight}</td>
-
-                                    </tr>
-                                    )
-                                })}
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
-            )
-            })}
-            </tbody>
-        </table>
+        {isLoading&&<ClipLoader/>}
+        <br></br>
+        {!isLoading&&<DashBoardTable transactionsForDashboard={dashBoardTrans}/>}
         </>
     )
 
