@@ -11,8 +11,22 @@ export type DashboardTran={
   totalexp:number
 }
 
-export type TranObject={
+export type DayBookTran={
+  id:number;
+  fname:string;
+  lname:string;
+  tran_id:number;
+  totalexp:number;
+  tran_date:string
+}
+
+export type DashBoardTranObject={
   transaction_details:DashboardTran;
+  fruits_array:Fruit[]
+}
+
+export type DayBookTranObject={
+  transaction_details:DayBookTran;
   fruits_array:Fruit[]
 }
 

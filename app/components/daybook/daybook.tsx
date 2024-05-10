@@ -1,12 +1,8 @@
-import { fetchTransactionsForDashboard } from "@/app/lib/read";
-import { Mangotypes } from "@/app/lib/definitions";
+import { Mangotypes, DayBookTranObject } from "@/app/lib/definitions"
 
-export default async function Page(){
-    const transactionsForDashboard=await fetchTransactionsForDashboard();
-    console.log(transactionsForDashboard);
+export default  function DayBookTable({dayBookTrans}:{dayBookTrans:DayBookTranObject[]}) {
     
-
-    return(
+        return (
         <>
         <table cellPadding={10} >
             <thead>
@@ -20,7 +16,7 @@ export default async function Page(){
             <tbody className="text-center">
 
         
-            {transactionsForDashboard.map((tran)=>{
+            {dayBookTrans.map((tran)=>{
             return(
                 <tr key={tran.transaction_details.tran_id}>
                     <td>{tran.transaction_details.id}</td>
@@ -49,7 +45,6 @@ export default async function Page(){
             </tbody>
         </table>
         </>
-    )
-
-   
+        )
+    
 }
