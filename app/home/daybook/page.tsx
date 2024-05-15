@@ -55,8 +55,11 @@ export default  function Page(){
         <>
         <label htmlFor="searchwithdate">Select a date</label>
         <br></br>
+        
         <input type="date" name="searchwithdate" id="searchwithdate"  onChange={handleChange} value={date}></input>
         <br></br>
+        <br></br>
+
         <button type="submit" onClick={handleClick} className="bg-blue-500 rounded-md">Search</button>
 
         <button type="submit" onClick={handleClear} className="bg-blue-500 rounded-md ml-56">Clear</button>

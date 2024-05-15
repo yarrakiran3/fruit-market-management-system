@@ -4,6 +4,7 @@ import {
   ListBulletIcon,
   CurrencyRupeeIcon,
   UserPlusIcon,
+  TableCellsIcon,
   WalletIcon
 } from '@heroicons/react/24/outline';
 
@@ -27,7 +28,7 @@ import { usePathname } from 'next/navigation';
   },
   {title:"Account Ledger",
     href:"/home/ledger",
-    icon:UserPlusIcon
+    icon:TableCellsIcon
   },
   {title:"Payment",
     href:"/home/payment",

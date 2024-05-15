@@ -35,11 +35,15 @@ export default  async function Page(){
 
     return(
         <>
-        <h1 className="text-blue-500 text-3xl">Latest Transactions</h1>
-        <span >
+        <div className="flex">
+        <h1 className="text-blue-500 text-3xl flex-items ">Latest Transactions</h1>
+        
         <CreateTransaction ></CreateTransaction>
 
-        </span>
+        </div>
+        
+        
+        <br></br>
         <br></br>
         
         <>

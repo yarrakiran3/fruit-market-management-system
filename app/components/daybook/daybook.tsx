@@ -4,25 +4,25 @@ export default  function DayBookTable({transactionsForDayBook}:{transactionsForD
     
         return (
         <>
-        <table cellPadding={10} >
-            <thead>
-                <tr>
-                <th>customer_id</th>
-                <th>customer name</th>
-                <th>total exp</th>
-                <th>Mangoes</th>
+        <table cellPadding={10} className="border border-sky-500">
+            <thead className="border border-sky-500">
+                <tr className="border border-sky-500">
+                <th className="border border-sky-500">customer_id</th>
+                <th className="border border-sky-500">customer name</th>
+                <th className="border border-sky-500">total exp</th>
+                <th className="border border-sky-500">Mangoes</th>
                 </tr>
             </thead>
-            <tbody className="text-center">
+            <tbody className="text-center" >
 
         
             {transactionsForDayBook.map((tran)=>{
             return(
-                <tr key={tran.transaction_details.tran_id}>
-                    <td>{tran.transaction_details.id}</td>
-                    <td>{tran.transaction_details.fname}  {tran.transaction_details.lname}</td>
-                    <td>{tran.transaction_details.totalexp}</td>
-                    <td>
+                <tr key={tran.transaction_details.tran_id} className="border border-sky-500">
+                    <td className="border border-sky-500">{tran.transaction_details.id}</td>
+                    <td className="border border-sky-500">{tran.transaction_details.fname}  {tran.transaction_details.lname}</td>
+                    <td className="border border-sky-500">{tran.transaction_details.totalexp}</td>
+                    <td className="border border-sky-500">
                         <table cellPadding={5}>
                             <tbody>
                                 {tran.fruits_array.map((fruit,index)=>{
