@@ -5,6 +5,9 @@ import DayBookTable from "@/app/components/daybook/daybook";
 import { DayBookTranObject } from "@/app/lib/definitions";
 import { fetchTransactionsForDayBook } from "@/app/lib/read";
 import { ClipLoader } from "react-spinners";
+import { Suspense } from "react";
+import { LatestInvoicesSkeleton } from "@/app/ui/skeletons";
+
 export default  function Page(){
     const [date,setDate]=useState("");
     const [dateIsSet,setDateisSet]=useState(false);
@@ -60,7 +63,7 @@ export default  function Page(){
         <>
         <br></br>
         <br></br>
-        {dateIsSet&&!dataIsFetched&&<><ClipLoader/>Fetching the data...</>}
+        {dateIsSet&&!dataIsFetched&&<><LatestInvoicesSkeleton/></>}
         <br></br>
         {dataIsFetched&&<DayBookTable transactionsForDayBook={dayBookTrans}/>}
         </>

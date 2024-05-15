@@ -3,6 +3,7 @@
 // For simplicity of teaching, we're manually defining these types.
 // However, these types are generated automatically if you're using an ORM such as Prisma.
 
+
 export type DashboardTran={
   id:number;
   fname:string;
@@ -19,11 +20,40 @@ export type DayBookTran={
   totalexp:number;
   tran_date:string
 }
+export type EditTranObject={
+  tran_id:number,
+  customer_id:number,
+  fname:string,
+  lname:string,
+  fathername:string,
+  place:string,
+  tran_date:string,
+  vhtype:number,
+  vhno:string,
+  cooli:number,
+  kirai:number,
+  commission:number,
+  fruits_array:Fruit[] 
+}
 
 export type DashBoardTranObject={
   transaction_details:DashboardTran;
   fruits_array:Fruit[]
 }
+
+export type TranObject={
+  tran_id:number;
+  customer_id:number;
+  tran_date:string;
+  vhtype:number;
+  vhno:string;
+  cooli:number;
+  kirai:number;
+  commission:number
+
+
+}
+
 
 export type DayBookTranObject={
   transaction_details:DayBookTran;
@@ -33,7 +63,8 @@ export type DayBookTranObject={
 export const Mangotypes: string[] = ["","Chinna Rasam","Pedha Rasam", "Totapuri","Banginapalli","Cheruku Rasam"];
 
 
-export type martket_customer ={
+export type MartketCustomer ={
+  id:number;
   fname:string;
   lname:string;
   father:string;
@@ -56,17 +87,17 @@ export type User = {
   password: string;
 };
 
-export type Transaction={
+export type EntryPageObject={
   fname:string;
   lname:string;
   place:string;
   fathernamne:string;
   date:string;
   vhno:string;
-  cooli:string;
-  kirai:string
-  commission:string;
-  vhtype:string
+  cooli:number;
+  kirai:number
+  commission:number;
+  vhtype:number
 }
 
 // 

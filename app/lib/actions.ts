@@ -101,7 +101,7 @@ const customer_id=customerReturn.rows[0].id
 
 
 const tranReturn=await sql`
-insert into transactions (cutomer_id,tran_date,vhtype,vhno,cooli,kirai,commission,totalExp)
+insert into transactions (customer_id,tran_date,vhtype,vhno,cooli,kirai,commission,totalExp)
 values (${customer_id},${date},${vhtype},${vhno},${cooli},${kirai},${commission},${totalExp})
 returning tran_id
 `

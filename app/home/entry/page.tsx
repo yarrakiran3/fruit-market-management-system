@@ -1,14 +1,20 @@
 'use client'
-import React, { useState } from "react";
+import React,{ useState } from "react";
 import { addAnEntry } from "@/app/lib/actions"
 import { Fruit } from "@/app/lib/definitions";
-import { Mangotypes } from "@/app/lib/definitions";
-    
+
+import FruitTable from "@/app/components/entry/fruits-table";
+
 
 export default function Page(){
 
+    // const router=useSearchParams();
+    // const [tranObject,setTranObject]=useState<any>();
+    
+    // const tranID=Number(router.get('tran_id'));
 
 
+    
     // const [formIsFilled,setFormIsFilled]=useState(true);
     const [fruitIsAdded,setFruitIsAdded]=useState(true);
     const [trigger,triggerTable]=useState(false)
@@ -19,7 +25,10 @@ export default function Page(){
         mangotype:0,
         rate:0,
         weight:0
-    })
+    });
+    const [isEditingFruit,setIsEditingFruit]=useState(false);
+    const [indexOfEdit,setIndexOfEdit]=useState(100);
+    
     
 
 function handleChange(e:any){
@@ -56,7 +65,7 @@ const resetFruit =()=>{
 }
 
 function addFruit(e:any){
-    if(singleFruit.mangotype!=0&&singleFruit.rate!=0&&singleFruit.weight!=0){
+    if(singleFruit.mangotype!=0&&singleFruit.rate!=0&&singleFruit.weight!=0&&!isEditingFruit){
         const nextArray=[...fruitsArray,singleFruit];
         addFruittoArray(nextArray);
          resetFruit();
@@ -65,9 +74,15 @@ function addFruit(e:any){
         setAllFruitDetailsEntered(true);
 
 
+    } else if(isEditingFruit&&singleFruit.rate!=0&&singleFruit.weight!=0) {
+        fruitsArray[indexOfEdit]=singleFruit;
+        setIsEditingFruit(false)
+        setIndexOfEdit(100)
+        resetFruit()
+
+
     } else {
         setAllFruitDetailsEntered(false);
-
     }
     e.preventDefault();
         
@@ -207,12 +222,14 @@ function addFruit(e:any){
             <button className="bg-blue-500 rounded-md" onClick={(e)=>addFruit(e)}>Add</button>
             
             <br></br>
-            {trigger?<FruitTable addedFruitArray={fruitsArray}></FruitTable>:<></>}
+            {trigger?<FruitTable fruitsArray={fruitsArray} 
+            setFruitValues={setFruitValues} addFruittoArray={addFruittoArray}
+            setIsEditingFruit={setIsEditingFruit} setIndexOfEdit={setIndexOfEdit}></FruitTable>:<></>}
             <br></br>
 
             
             {/* <ValidationMsg formisFilled={formIsFilled} type="transaction"></ValidationMsg> */}
-            <button className="bg-blue-500 rounded-md" type="submit" >Submit</button>
+            <button className="bg-blue-500 rounded-md"  >Submit</button>
         </form>
     )
 }
@@ -234,30 +251,3 @@ function FruitValidation({fruitIsAdded}:{fruitIsAdded:boolean}){
         </>
     ) 
 }
-function FruitTable({addedFruitArray}:{addedFruitArray:Array<Fruit>}){
-    return (
-        <>
-        <table>
-                <thead>
-                    <th>Type</th>
-                    <th>Rate</th>
-                    <th>Weight</th>
-                </thead>
-        {addedFruitArray.map((fruit,index)=>{
-            
-             return <>
-             <tbody>
-                <tr key={index}>
-                    <td>{Mangotypes[fruit.mangotype]}</td>
-                    <td>{fruit.rate}</td>
-                    <td>{fruit.weight}</td>
-                </tr>
-             </tbody>
-             </>
-           
-        })}
-        </table>
-        </>
-        
-    )
-    }
