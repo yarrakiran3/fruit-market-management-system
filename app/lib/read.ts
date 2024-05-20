@@ -1,7 +1,5 @@
 'use server';
-import { sql
-
- } from "@vercel/postgres";
+import {sql} from '@vercel/postgres'
 
  import { unstable_noStore as noStore } from 'next/cache';
 
@@ -105,32 +103,33 @@ export async function fetchTransaction(tid:number) {
         const transaction=await sql<TranObject>`
     select tran_id,customer_id,tran_date,vhtype,vhno,cooli,kirai,commission from transactions where tran_id=${tid}
     `
+    // console.log(transaction)
 
     const furits =await sql<Fruit>`
     select mangotype,rate,weight from mangoes where tran_id=${tid}
     `
+    // console.log(furits)
 
-    const customer=await sql<MartketCustomer>`
-    select * from market_customers where id=${transaction.rows[0].customer_id}
-    `;
+    
+    return {transaction,furits}
 
-    const tranObjectToEdit={
-        tran_id:tid,
-        customer_id:customer.rows[0].id,
-        fname:customer.rows[0].fname,
-        lname:customer.rows[0].lname,
-        fathername:customer.rows[0].father,
-        place:customer.rows[0].place,
-        tran_date:transaction.rows[0].tran_date,
-        vhtype:transaction.rows[0].vhtype,
-        vhno:transaction.rows[0].vhno,
-        cooli:transaction.rows[0].cooli,
-        kirai:transaction.rows[0].kirai,
-        commission:transaction.rows[0].commission,
-        fruits_array:furits.rows    
-    }
+    // const tranObjectToEdit={
+    //     tran_id:tid,
+    //     customer_id:customer.rows[0].id,
+    //     fname:customer.rows[0].fname,
+    //     lname:customer.rows[0].lname,
+    //     fathername:customer.rows[0].father,
+    //     place:customer.rows[0].place,
+    //     tran_date:transaction.rows[0].tran_date,
+    //     vhtype:transaction.rows[0].vhtype,
+    //     vhno:transaction.rows[0].vhno,
+    //     cooli:transaction.rows[0].cooli,
+    //     kirai:transaction.rows[0].kirai,
+    //     commission:transaction.rows[0].commission,
+    //     fruits_array:furits.rows    
+    // }
     // console.log(tranObjectToEdit)
-    return tranObjectToEdit
+    // return tranObjectToEdit
 
         
     }
@@ -147,3 +146,10 @@ export async function fetchTransaction(tid:number) {
     
     
 }
+
+export async function fetchCustomerByID(customer_id:number) {
+   const customer=await sql<MartketCustomer>`
+    select * from market_customers where id=${customer_id}
+    `; 
+    return customer.rows[0]
+;}
