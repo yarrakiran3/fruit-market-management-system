@@ -151,5 +151,5 @@ export async function fetchCustomerByID(customer_id:number) {
    const customer=await sql<MartketCustomer>`
     select * from market_customers where id=${customer_id}
     `; 
-    return customer.rows[0]
+    return customer
 ;}
