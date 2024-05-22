@@ -19,12 +19,12 @@ export default  function Page(){
         setDate(e.target.value)
         setDateisSet(false);
         
-        console.log(e.target.value) 
+        // console.log(e.target.value) 
     }
      function handleClick(){ 
         if(date!=""){
             setDateisSet(true);
-            console.log(dateIsSet);
+            // console.log(dateIsSet);
             setDataIsFetched(false)
 
         } 

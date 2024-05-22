@@ -2,6 +2,8 @@
 import { PencilIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { deleteTransaction } from '@/app/lib/update-delete';
+import { useState } from 'react';
+import { SyncLoader } from 'react-spinners';
 export function CreateTransaction() {
     return (
       <Link
@@ -32,11 +34,14 @@ export function UpdateTransaction({ tran_id }: { tran_id: number }) {
   }
   
   export function DeleteTransaction({ tran_id }: { tran_id: number }) {
+    const [isDeleteClicked,setIsDeleteClicked]=useState(false);
     return (
       <>
-        <button className="rounded-md border p-2 hover:bg-gray-100" onClick={ ()=>deleteTransaction({tran_id:tran_id})}>
+        <button className="rounded-md border p-2 hover:bg-gray-100" onClick={ ()=>{setIsDeleteClicked(true);deleteTransaction({tran_id:tran_id})}}>
           <span className="sr-only">Delete</span>
-          <TrashIcon className="w-5" />
+          {!isDeleteClicked&&<TrashIcon className="w-5" />}
+          {isDeleteClicked&&<SyncLoader/>}
+
         </button>
       </>
     );

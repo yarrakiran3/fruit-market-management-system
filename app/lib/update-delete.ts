@@ -46,7 +46,7 @@ redirect('/home/dashboard')
 
 export async function deleteTransaction({tran_id}:{tran_id:number}) {
 const deleteFruits=await sql`
-delete from fruits where tran_id=${tran_id}
+delete from mangoes where tran_id=${tran_id}
 `
 const deleteTran =await sql`
 delete from transactions where tran_id=${tran_id}`

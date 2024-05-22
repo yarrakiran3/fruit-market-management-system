@@ -64,7 +64,7 @@ export  async function fetchTransactionsForDayBook({dateToRender}:{dateToRender:
         where transactions.tran_date=${dateToRender}
         order by transactions.tran_id desc        
         `
-        console.log(transacionsForDaybookWithCustomerID.rows)
+        // console.log(transacionsForDaybookWithCustomerID.rows)
 
         for (const tran of transacionsForDaybookWithCustomerID.rows){
                 try{
