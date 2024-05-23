@@ -160,3 +160,24 @@ export async function fetchAllMarketCustomers() {
      `; 
      return customer.rows
  ;}
+
+ export async function fetchTransactionsForLedger({id}:{id:number}) {
+    try{
+        
+
+        const transactionsForLedger=await sql<TranObject>`
+        select * from transactions where customer_id=${id}
+        `
+        const paymentsForLedger=await sql<MartketCustomer>`
+        select * from payments where customer_id=${id}
+        `
+        const ledgerObject={
+            transactions:transactionsForLedger.rows,
+            payments:paymentsForLedger.rows
+        }
+        return ledgerObject;
+    }catch(e){
+        console.log(e)
+    }
+
+ }
