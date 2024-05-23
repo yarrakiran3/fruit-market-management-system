@@ -2,7 +2,7 @@
 import { sql } from "@vercel/postgres";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { EditTranObject } from "./definitions";
+import { EditTranObject, ExistingPayment } from "./definitions";
 
 export async function updateTransation({transaction,tran_id}:{transaction:EditTranObject,tran_id:number}){
 const totalExp=transaction.cooli+transaction.kirai+transaction.commission;
@@ -54,5 +54,26 @@ delete from transactions where tran_id=${tran_id}`
 
 revalidatePath('/home/dashboard')
 redirect('/home/dashboard')
+
+}
+
+export async function addPaymentForExisting({existingPaymentObj}:{existingPaymentObj:ExistingPayment}){
+  const presentDate=new Date().toISOString();
+  // console.log(existingPaymentObj)
+try{
+
+  const addPayment=await sql`
+  insert into payments (customer_id, payment_type,note,amount,created_at)
+  values (${existingPaymentObj.customer_id},${Number(existingPaymentObj.payment_type)},
+    ${existingPaymentObj.note},${existingPaymentObj.amount},${presentDate})
+  `
+
+} catch(e){
+  console.log(e)
+  throw new Error('Database Error')
+}
+
+revalidatePath('/home/payment')
+redirect('/home/payment')
 
 }

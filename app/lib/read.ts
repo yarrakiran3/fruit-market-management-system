@@ -153,3 +153,10 @@ export async function fetchCustomerByID(customer_id:number) {
     `; 
     return customer
 ;}
+
+export async function fetchAllMarketCustomers() {
+    const customer=await sql<MartketCustomer>`
+     select * from market_customers order by id desc
+     `; 
+     return customer.rows
+ ;}
