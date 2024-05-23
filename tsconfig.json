@@ -29,6 +29,6 @@
     ".next/types/**/*.ts",
     "app/lib/placeholder-data.js",
     "scripts/seed.js"
-  ],
+, "app/home/payment/new-customer-payment"  ],
   "exclude": ["node_modules"]
 }

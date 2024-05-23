@@ -3,29 +3,7 @@
 import { z } from "zod";
 import { redirect } from 'next/navigation';
 import { revalidatePath } from "next/cache";
-import { FruitArray } from "./definitions";
-import { signIn } from '@/auth';
-import { AuthError } from 'next-auth';
-
-export async function authenticate(
-  prevState: string | undefined,
-  formData: FormData,
-) {
-  try {
-    await signIn('credentials', formData);
-  } catch (error) {
-    if (error instanceof AuthError) {
-      switch (error.type) {
-        case 'CredentialsSignin':
-          return 'Invalid credentials.';
-        default:
-          return 'Something went wrong.';
-      }
-    }
-    throw error;
-  }
-}
- 
+import { FruitArray, NewUserPaymentObject } from "./definitions";
 
 const InvoiceFormSchema = z.object({
   id: z.string(),
@@ -143,4 +121,23 @@ for(const fruit of fruitsArray){
 revalidatePath('/home/dashboard')
 redirect('/home/dashboard')
 
+}
+
+export async function addPayment({paymentObject}:{paymentObject:NewUserPaymentObject}){
+  const presentDate=new Date().toISOString();
+
+try{
+const adduser=await sql`
+insert into market_customers (fname,lname,father,place)
+values (${paymentObject.fname},${paymentObject.lname},${paymentObject.fathername},${paymentObject.place})
+returning id
+`
+const addpayment=await sql`
+insert into payments (customer_id,payment_type,note,amount,created_at)
+values (${adduser.rows[0].id},${Number(paymentObject.payment_type)},${paymentObject.note},${paymentObject.amount},${presentDate})
+`
+
+}catch(e){
+console.log(e);
+}
 }
