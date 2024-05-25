@@ -2,9 +2,26 @@
 import { ExistingUserTranObject, Fruit, MartketCustomer } from "@/app/lib/definitions"
 import { useState } from "react";
 import FruitTable from "./fruits-table";
-import { FruitValidation, ValidationMsg } from "@/app/home/entry/page";
 import addTranForExistingCustomer from "@/app/lib/update-delete";
 import { SyncLoader } from "react-spinners";
+
+function ValidationMsg({formisFilled,type}:{formisFilled:boolean,type:string}){
+    return(
+        <>
+        {formisFilled?<></>:<span>Pleas fill all {type} details</span>}
+        
+        </>
+    )
+}
+
+ function FruitValidation({fruitIsAdded}:{fruitIsAdded:boolean}){
+    return(
+        <>
+        {fruitIsAdded?<></>:<span>Pleas fill atleast one fruit</span>}
+        
+        </>
+    ) 
+}
 
 export default function ExistingCustomerEntry({customers}:{customers:MartketCustomer[]}){
     const [fruitIsAdded,setFruitIsAdded]=useState(true);
@@ -241,3 +258,4 @@ export default function ExistingCustomerEntry({customers}:{customers:MartketCust
     </>
     )
 }
+

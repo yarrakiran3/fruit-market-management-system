@@ -257,7 +257,7 @@ function addFruit(e:any){
     )
 }
 
-export function ValidationMsg({formisFilled,type}:{formisFilled:boolean,type:string}){
+ function ValidationMsg({formisFilled,type}:{formisFilled:boolean,type:string}){
     return(
         <>
         {formisFilled?<></>:<span>Pleas fill all {type} details</span>}
@@ -266,7 +266,7 @@ export function ValidationMsg({formisFilled,type}:{formisFilled:boolean,type:str
     )
 }
 
-export function FruitValidation({fruitIsAdded}:{fruitIsAdded:boolean}){
+ function FruitValidation({fruitIsAdded}:{fruitIsAdded:boolean}){
     return(
         <>
         {fruitIsAdded?<></>:<span>Pleas fill atleast one fruit</span>}
