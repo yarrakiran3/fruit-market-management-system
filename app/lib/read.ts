@@ -1,7 +1,7 @@
 'use server';
 import {sql} from '@vercel/postgres'
 
- import { unstable_noStore as noStore } from 'next/cache';
+ import { unstable_noStore as noStore, revalidatePath } from 'next/cache';
 
  import { DashBoardTranObject, DashboardTran, DayBookTran, DayBookTranObject, Fruit, FruitArray, MartketCustomer, TranObject } from "./definitions";
 
@@ -98,10 +98,10 @@ export  async function fetchTransactionsForDayBook({dateToRender}:{dateToRender:
 }
 
 export async function fetchTransaction(tid:number) {
+    noStore();
     try{
-
         const transaction=await sql<TranObject>`
-    select tran_id,customer_id,tran_date,vhtype,vhno,cooli,kirai,commission from transactions where tran_id=${tid}
+    select tran_id,customer_id,tran_date,trantype,vhtype,vhno,cooli,kirai,commission from transactions where tran_id=${tid}
     `
     // console.log(transaction)
 
@@ -148,6 +148,7 @@ export async function fetchTransaction(tid:number) {
 }
 
 export async function fetchCustomerByID(customer_id:number) {
+    noStore();
    const customer=await sql<MartketCustomer>`
     select * from market_customers where id=${customer_id}
     `; 
@@ -155,6 +156,7 @@ export async function fetchCustomerByID(customer_id:number) {
 ;}
 
 export async function fetchAllMarketCustomers() {
+    noStore()
     const customer=await sql<MartketCustomer>`
      select * from market_customers order by id desc
      `; 
@@ -162,6 +164,7 @@ export async function fetchAllMarketCustomers() {
  ;}
 
  export async function fetchTransactionsForLedger({id}:{id:number}) {
+    noStore();
     try{
         
 
@@ -180,4 +183,53 @@ export async function fetchAllMarketCustomers() {
         console.log(e)
     }
 
+ }
+
+ export async function searchCustomer({searchString}:{searchString:string}) {
+    noStore();
+    let market_customers:MartketCustomer[];
+    try{
+    const customers=await sql<MartketCustomer>`
+    SELECT *
+FROM market_customers
+WHERE fname ILIKE ${`%${searchString}%`}
+  OR lname ILIKE ${`%${searchString}%`}
+  OR father ILIKE ${`%${searchString}%`};
+       `
+       market_customers=customers.rows
+       return market_customers
+ }catch(e){
+console.log(e)
+ }
+ }
+
+ export async function getAccountLedger(customer_id:number) {
+    noStore();
+    try{
+        const getLedger=await sql`
+    select * from ledger where customer_id=${customer_id}
+    `
+        console.log(getLedger.rows)
+        return getLedger.rows
+    }
+    catch(e){
+        console.log(e)
+    }
+ }
+
+ export async function getPaymentForEdit(id:number) {
+    noStore()
+    try{
+        const payment=await sql`
+    select * from payments where payment_id=${id}
+    `
+    const paymentCustomer=await sql`
+    select * from market_customers where id=${payment.rows[0].customer_id}
+    `
+    return {paymentObject:payment.rows[0],customerObject:paymentCustomer.rows[0]}
+
+    }catch(e){
+        console.log(e)
+    }
+    
  }

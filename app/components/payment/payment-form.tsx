@@ -3,6 +3,7 @@ import { MartketCustomer } from "@/app/lib/definitions";
 import { ExistingPayment } from "@/app/lib/definitions";
 import { addPaymentForExisting } from "@/app/lib/update-delete";
 import { useState } from "react";
+import { SyncLoader } from "react-spinners";
 
 export default function PaymentForm({customers}:{customers:MartketCustomer[]}){
     const [paymentObj,setPaymentObj]=useState<ExistingPayment>(
@@ -15,6 +16,7 @@ export default function PaymentForm({customers}:{customers:MartketCustomer[]}){
     );
     const [allDetailsCorrect,setAllDetailsAreCorrect]=useState(true)
     const [selectedOption, setSelectedOption] = useState('');
+    const [submitClicked,setSubmitClicked]=useState(false);
 
     function handSelectInput(e:any){
         const updated_paymentObj={...paymentObj}
@@ -52,6 +54,7 @@ export default function PaymentForm({customers}:{customers:MartketCustomer[]}){
         if(paymentObj.customer_id!=null&&paymentObj.customer_id!=undefined&&paymentObj.customer_id>0
             &&(paymentObj.payment_type=='0'||paymentObj.payment_type=='1')
             &&paymentObj.amount>0){
+                setSubmitClicked(true);
                 addPaymentForExisting({existingPaymentObj:paymentObj})
                 setSelectedOption('')
                 // console.log(paymentObj)
@@ -122,8 +125,9 @@ export default function PaymentForm({customers}:{customers:MartketCustomer[]}){
             <br></br>
 
             {!allDetailsCorrect&&<span className="text-red-500">Please add correct details</span>}
-            <button type="button" className="bg-blue-500 rounded-md" onClick={handleSubmit}>Submit</button>
-
+            {!submitClicked&&<button type="button" className="bg-blue-500 rounded-md" onClick={handleSubmit}>Submit</button>
+                }
+                {submitClicked&&<SyncLoader/>}
         
         </>
     )

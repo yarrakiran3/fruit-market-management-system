@@ -19,6 +19,7 @@ const tranObjectToEdit={
         fathername:customer.rows[0].father,
         place:customer.rows[0].place,
         tran_date:transaction.rows[0].tran_date,
+        trantype:transaction.rows[0].trantype,
         vhtype:transaction.rows[0].vhtype,
         vhno:transaction.rows[0].vhno,
         cooli:transaction.rows[0].cooli,

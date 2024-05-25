@@ -5,10 +5,9 @@ import { EditTranObject } from "@/app/lib/definitions";
 import { updateTransation } from "@/app/lib/update-delete";
 export default function EditForm({transaction}:{transaction:EditTranObject}){
     const [fruitsArray,setFruitsArray]=useState(transaction.fruits_array)
-
     const handleSubmit=async()=>{
         transaction.fruits_array=fruitsArray;
-        console.log(transaction.fruits_array)
+        // console.log(transaction.fruits_array)
         await updateTransation({transaction:transaction,tran_id:transaction.tran_id})
     }
     return(
@@ -43,6 +42,12 @@ export default function EditForm({transaction}:{transaction:EditTranObject}){
          onChange={(e)=>{transaction.tran_date=e.target.value}}
          defaultValue={transaction.tran_date} required></input>
         <br></br>
+
+        <span>Import/Export</span><br></br>
+        {transaction.trantype===1&&<span className="text-blue-700">Import</span>}
+        {transaction.trantype===2&&<span className="text-blue-700">Export</span>}
+        <br></br>
+        
 
         <label htmlFor="vhtype">Vehicle Type</label><br></br>
         <select  id="vhtype" name="vhtype"  

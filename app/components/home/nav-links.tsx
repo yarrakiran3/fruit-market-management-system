@@ -34,10 +34,10 @@ import { usePathname } from 'next/navigation';
     href:"/home/payment",
     icon:CurrencyRupeeIcon
   },
-  {title:"Summary",
-    href:"/home/summary",
-    icon:WalletIcon
-  },
+  // {title:"Summary",
+  //   href:"/home/summary",
+  //   icon:WalletIcon
+  // },
   
 ]
 

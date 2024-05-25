@@ -48,6 +48,7 @@ export type EditTranObject={
   fathername:string,
   place:string,
   tran_date:string,
+  trantype:number,
   vhtype:number,
   vhno:string,
   cooli:number,
@@ -65,13 +66,25 @@ export type TranObject={
   tran_id:number;
   customer_id:number;
   tran_date:string;
+  trantype:number;
   vhtype:number;
   vhno:string;
   cooli:number;
   kirai:number;
   commission:number
+}
 
-
+export type ExistingUserTranObject={
+  customer_id:number,
+  tran_date:string;
+  trantype:number;
+  vhtype:number;
+  vhno:string;
+  cooli:number;
+  kirai:number;
+  commission:number;
+  
+  [key:string]:any
 }
 
 

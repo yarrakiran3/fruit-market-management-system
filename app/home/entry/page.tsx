@@ -4,6 +4,9 @@ import { addAnEntry } from "@/app/lib/actions"
 import { Fruit } from "@/app/lib/definitions";
 
 import FruitTable from "@/app/components/entry/fruits-table";
+import Link from "next/link";
+import { PlusIcon } from "@heroicons/react/24/outline";
+import { SyncLoader } from "react-spinners";
 
 
 export default function Page(){
@@ -28,7 +31,8 @@ export default function Page(){
     });
     const [isEditingFruit,setIsEditingFruit]=useState(false);
     const [indexOfEdit,setIndexOfEdit]=useState(100);
-    
+    const [submitClicked,setSubmitClicked]=useState(false);
+
     
 
 function handleChange(e:any){
@@ -86,8 +90,6 @@ function addFruit(e:any){
     }
     e.preventDefault();
         
-    
-   
 }    
 
 // function isEmpty(obj:Object) {
@@ -111,8 +113,8 @@ function addFruit(e:any){
    function addEntry(){
     setInputs(values=>({...values,["totalexp"]:totalExpenses(inputs)}))
     
-    if(size(inputs)==11&&fruitsArray.length>0){
-        
+    if(size(inputs)==12&&fruitsArray.length>0){
+        setSubmitClicked(true)
         addAnEntry(inputs,fruitsArray);
         setInputs({})
         addFruittoArray([])
@@ -126,6 +128,15 @@ function addFruit(e:any){
   }
   
     return(
+        <>
+        <Link
+        href="/home/entry/existing-customer"
+        className="flex w-1/4  h-10 items-center rounded-lg bg-blue-600 px-4 text-sm font-medium text-white transition-colors hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+        >
+        <span className="hidden md:block">Existing Customer</span>{' '}
+        <PlusIcon className="h-5 md:ml-4" />
+      </Link>
+      <br></br>
         <form action={addEntry}>
             <label htmlFor="fname">First Name</label><br></br>
             <input type="text" id="fname" name="fname"  onChange={handleChange}  required></input>
@@ -145,6 +156,15 @@ function addFruit(e:any){
 
             <label htmlFor="date">Enter a Date</label><br></br>
             <input type="date" id="date" name="date"  onChange={handleChange}  required></input>
+            <br></br>
+
+            <label htmlFor="trantype">Import/Export</label><br></br>
+            <select  id="trantype" name="trantype"  onChange={handleChange}  required>
+            <option ></option>    
+            <option value={1}>Import</option>
+            <option value={2}>Export</option>
+            
+            </select>
             <br></br>
 
             <label htmlFor="vhtype">Vehicle Type</label><br></br>
@@ -229,12 +249,15 @@ function addFruit(e:any){
 
             
             {/* <ValidationMsg formisFilled={formIsFilled} type="transaction"></ValidationMsg> */}
-            <button className="bg-blue-500 rounded-md"  >Submit</button>
+            {!submitClicked&&<button className="bg-blue-500 rounded-md" type="submit" >Submit</button>
+            }  
+            {submitClicked&&<SyncLoader/>} 
         </form>
+        </>
     )
 }
 
-function ValidationMsg({formisFilled,type}:{formisFilled:boolean,type:string}){
+export function ValidationMsg({formisFilled,type}:{formisFilled:boolean,type:string}){
     return(
         <>
         {formisFilled?<></>:<span>Pleas fill all {type} details</span>}
@@ -243,7 +266,7 @@ function ValidationMsg({formisFilled,type}:{formisFilled:boolean,type:string}){
     )
 }
 
-function FruitValidation({fruitIsAdded}:{fruitIsAdded:boolean}){
+export function FruitValidation({fruitIsAdded}:{fruitIsAdded:boolean}){
     return(
         <>
         {fruitIsAdded?<></>:<span>Pleas fill atleast one fruit</span>}

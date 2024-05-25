@@ -2,7 +2,8 @@
 
 import { addPayment } from "@/app/lib/actions";
 import { NewUserPaymentObject } from "@/app/lib/definitions";
-import { useState } from "react"
+import { use, useState } from "react"
+import { SyncLoader } from "react-spinners";
 
 export default function Page(){
     const [paymentObject,setPaymentObject]=useState<NewUserPaymentObject>(
@@ -19,7 +20,7 @@ export default function Page(){
     );
     const [allDetailsCorrect,setAllDetailsAreCorrect]=useState(true)
     const [selectedOption, setSelectedOption] = useState('');
-
+    const [submitClicked,setSubmitClicked]=useState(false);
     function handleRadioButton(e:any){
         const updated_paymentObj={...paymentObject}
             updated_paymentObj.payment_type=e.target.value
@@ -42,6 +43,7 @@ export default function Page(){
     function handleSubmit(){
         if(Number(paymentObject.amount)>0&&paymentObject.amount!=null&&paymentObject.amount!=undefined){
             console.log(paymentObject)
+            setSubmitClicked(true)
             addPayment({paymentObject:paymentObject})
             setSelectedOption('')
             setPaymentObject(
@@ -135,9 +137,11 @@ export default function Page(){
 
             {!allDetailsCorrect&&<span className="text-red-500">Please add correct amount</span>}
             <br></br>
-            <button type="submit" className="bg-blue-500 rounded-md" 
-            // onClick={handleSubmit}
-            >Submit</button>
+            {!submitClicked&&<button type="submit" className="bg-blue-500 rounded-md" 
+            >Submit</button>}
+            {
+                submitClicked&&<SyncLoader/>
+            }
 
 
     </form>    

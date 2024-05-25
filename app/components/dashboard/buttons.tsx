@@ -35,9 +35,15 @@ export function UpdateTransaction({ tran_id }: { tran_id: number }) {
   
   export function DeleteTransaction({ tran_id }: { tran_id: number }) {
     const [isDeleteClicked,setIsDeleteClicked]=useState(false);
+    const handleDelete = () => {
+      if (window.confirm("Are you sure you want to delete this transaction?")) {
+        setIsDeleteClicked(true);
+        deleteTransaction({ tran_id });
+      }
+    };
     return (
       <>
-        <button className="rounded-md border p-2 hover:bg-gray-100" onClick={ ()=>{setIsDeleteClicked(true);deleteTransaction({tran_id:tran_id})}}>
+        <button className="rounded-md border p-2 hover:bg-gray-100" onClick={handleDelete}>
           <span className="sr-only">Delete</span>
           {!isDeleteClicked&&<TrashIcon className="w-5" />}
           {isDeleteClicked&&<SyncLoader/>}
