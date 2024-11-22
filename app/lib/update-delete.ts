@@ -23,6 +23,7 @@ else {
   console.log('No mangoes found')
 }
  
+console.log("Full tran object",transaction)
 const updateTransactionTable=await sql`
 update transactions
 set tran_date=${transaction.tran_date}, vhtype=${transaction.vhtype}, vhno=${transaction.vhno}, 
@@ -47,7 +48,9 @@ update market_customers
 set fname=${transaction.fname},lname=${transaction.lname},place=${transaction.place},father=${transaction.fathername}
 where id=${transaction.customer_id}
 `
+
 if(transaction.trantype===1){
+  
   finalAmount=finalAmount-totalExp
   const updateLedger=await sql`
   update ledger
@@ -55,7 +58,7 @@ if(transaction.trantype===1){
   where tran_id=${transaction.tran_id}
   `;
   console.log('Credit updated')
-}else if(transaction.trantype===1){
+}else if(transaction.trantype===2){
   finalAmount=finalAmount+totalExp;
   const updateLedger=await sql`
   update ledger
@@ -89,6 +92,9 @@ delete from mangoes where tran_id=${tran_id}
 const deleteTran =await sql`
 delete from transactions where tran_id=${tran_id}`
 
+const deleteLedger = await sql`
+delete from ledger tran_id=${tran_id}
+`
 
 revalidatePath('/home/dashboard')
 redirect('/home/dashboard')

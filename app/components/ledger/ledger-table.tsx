@@ -15,7 +15,8 @@ export default function LedgerSearch({customers}:{customers:MartketCustomer[]}
 
     const handleChange=(e:any)=>{
         setCustomerId(e.target.value)
-        setLedgerData(null)
+        setLedgerData(null);
+        setIsFetched(false)
     }
     function handleClick(){
         if(customerId!=0){
