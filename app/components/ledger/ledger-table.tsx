@@ -35,7 +35,7 @@ export default function LedgerSearch({customers}:{customers:MartketCustomer[]}
                     setLedgerData(allRecords)
                     setCustomerIsSelected(false)
                     setIsFetched(true)
-                    console.log(allRecords)
+                    // console.log(allRecords)
                 }
             };getLedger()
         }
